@@ -1,30 +1,20 @@
 ---
-import Logo from '../components/Logo.astro';
-
 const navItems = [
-    { linkText: 'Home', href: '/' },
-    { linkText: 'Revalidation', href: '/revalidation' },
-    { linkText: 'Image CDN', href: '/image-cdn' },
-    { linkText: 'Edge Function', href: '/edge' },
-    { linkText: 'Blobs', href: '/blobs' }
+    { linkText: 'Inicio', href: '/#inicio' },
+    { linkText: 'Escritos', href: '/#escritos' },
+    { linkText: 'Sobre mí', href: '/#sobre-mi' }
 ];
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
-    <a href="/">
-        <Logo />
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="site-header">
+    <a class="wordmark" href="/" aria-label="Ir al inicio">
+        <span>valeria</span><i aria-hidden="true"></i><span>dev</span>
     </a>
-    {
-        !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
-                {navItems.map((item) => (
-                    <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
-                            {item.linkText}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        )
-    }
-</nav>
+    <nav aria-label="Navegación principal">
+        <ul>
+            {navItems.map((item) => <li><a href={item.href}>{item.linkText}</a></li>)}
+        </ul>
+    </nav>
+    <a class="header-contact" href="mailto:hola@valeriadev.com">Hablemos <span aria-hidden="true">↗</span></a>
+</header>
