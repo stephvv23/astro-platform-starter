@@ -1,19 +1,120 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
-
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+import { posts } from '../data/posts';
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
+<Layout title="Valeria — Desarrollo, ideas y notas">
+    <section class="hero" id="inicio">
+        <div class="hero-copy">
+            <p class="eyebrow"><span></span> Desarrolladora frontend & persona curiosa</p>
+            <h1>Construyo en la web.<br /><em>Pienso en voz alta.</em></h1>
+            <p class="hero-intro">Escribo sobre código, producto y todo lo que aprendo mientras convierto ideas en experiencias digitales.</p>
+            <a class="scribble-link" href="#escritos">Leer mis escritos <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-collage" aria-hidden="true">
+            <div class="paper paper-code">
+                <div class="window-dots"><i></i><i></i><i></i></div>
+                <code><b>const</b> idea = <span>"curiosidad"</span>;</code>
+                <code><b>while</b> (idea) {'{'}</code>
+                <code>&nbsp;&nbsp;crear();</code>
+                <code>{'}'}</code>
+            </div>
+            <div class="paper paper-note">
+                <span>nota mental:</span>
+                <strong>hacer espacio<br />para jugar</strong>
+                <svg viewBox="0 0 90 36"><path d="M3 23c18 8 47 8 81-11M73 4l12 8-6 13" /></svg>
+            </div>
+            <div class="flower flower-one">✣</div>
+            <div class="flower flower-two">✿</div>
+            <div class="tape"></div>
+        </div>
+    </section>
+
+    <section class="writing-section" id="escritos">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow"><span></span> Últimas ideas</p>
+                <h2>Desde mi cuaderno</h2>
+            </div>
+            <p>Apuntes sobre las cosas que construyo,<br />rompo, entiendo y vuelvo a intentar.</p>
+        </div>
+
+        <div class="filters" aria-label="Filtrar artículos">
+            <button class="is-active" data-filter="Todos" type="button">Todos</button>
+            <button data-filter="Código" type="button">Código</button>
+            <button data-filter="Producto" type="button">Producto</button>
+            <button data-filter="Carrera" type="button">Carrera</button>
+        </div>
+
+        <div class="post-list">
+            {posts.map((post) => (
+                <article class={`post-card ${post.color}`} data-category={post.category}>
+                    <a href={`/blog/${post.slug}`} aria-label={`Leer ${post.title}`}>
+                        <div class="post-number">{post.number}</div>
+                        <div class="post-body">
+                            <div class="post-meta"><span>{post.category}</span><time>{post.date}</time><span>{post.readingTime} lectura</span></div>
+                            <h3>{post.title}</h3>
+                            <p>{post.excerpt}</p>
+                        </div>
+                        <div class="post-arrow" aria-hidden="true">↗</div>
+                    </a>
+                </article>
+            ))}
+        </div>
+        <p class="empty-posts" hidden>No hay notas en esta categoría todavía. Estoy trabajando en ellas.</p>
+    </section>
+
+    <section class="about-section" id="sobre-mi">
+        <div class="portrait" aria-hidden="true">
+            <div class="portrait-sun"></div>
+            <div class="portrait-code">&lt;/&gt;</div>
+            <svg viewBox="0 0 280 310" role="presentation">
+                <path class="portrait-hair" d="M67 257c-16-43-18-117 3-167 18-44 57-64 94-50 28 10 43 37 48 68 8 51-3 114-16 149z"/>
+                <path class="portrait-neck" d="M117 187v45l-34 16 119 4-40-21-2-48z"/>
+                <path class="portrait-face" d="M103 87c18-18 66-20 83 8 8 13 6 65-10 88-13 19-46 25-64 2-19-24-26-80-9-98z"/>
+                <path class="portrait-shirt" d="M82 242c21-14 41-18 60-17 25 0 48 8 63 24l17 61H61z"/>
+                <path class="portrait-line" d="M129 140c4 3 10 3 15 0M133 166c8 5 18 4 26-1M116 124l7-2M157 122l8 2"/>
+            </svg>
+        </div>
+        <div class="about-copy">
+            <p class="eyebrow"><span></span> Un poco sobre mí</p>
+            <h2>Hola, soy Valeria.</h2>
+            <p class="about-lead">Me gusta construir cosas útiles, hacer preguntas incómodas y encontrar belleza en los detalles.</p>
+            <p>Soy desarrolladora frontend con debilidad por las interfaces cuidadas y los sistemas de diseño. Este rincón es mi laboratorio público: un lugar para ordenar lo aprendido y compartir el proceso, no solo el resultado.</p>
+            <div class="about-details">
+                <span>Actualmente</span>
+                <strong>Creando experiencias web desde Latinoamérica</strong>
+            </div>
+            <a class="text-link" href="mailto:hola@valeriadev.com">Cuéntame en qué estás trabajando <span>↗</span></a>
+        </div>
+    </section>
+
+    <section class="closing-note">
+        <p>¿Nos leemos?</p>
+        <h2>Las buenas ideas mejoran<br />cuando se comparten.</h2>
+        <a href="mailto:hola@valeriadev.com">Escríbeme una nota <span aria-hidden="true">→</span></a>
+    </section>
+
+    <script>
+        const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+        const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+        const emptyState = document.querySelector<HTMLElement>('.empty-posts');
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                buttons.forEach((item) => item.classList.remove('is-active'));
+                button.classList.add('is-active');
+                const filter = button.dataset.filter;
+                let visibleCards = 0;
+
+                cards.forEach((card) => {
+                    const isVisible = filter === 'Todos' || card.dataset.category === filter;
+                    card.hidden = !isVisible;
+                    if (isVisible) visibleCards += 1;
+                });
+
+                if (emptyState) emptyState.hidden = visibleCards !== 0;
+            });
+        });
+    </script>
 </Layout>

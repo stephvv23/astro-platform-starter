@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { posts } from '../../data/posts';
+
+export function getStaticPaths() {
+    return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={`${post.title} — Valeria`} description={post.excerpt}>
+    <article class="article-page">
+        <a class="back-link" href="/#escritos"><span aria-hidden="true">←</span> Volver a los escritos</a>
+        <header class={`article-header ${post.color}`}>
+            <div class="article-kicker"><span>{post.category}</span><time>{post.date}</time><span>{post.readingTime} lectura</span></div>
+            <h1>{post.title}</h1>
+            <p>{post.intro}</p>
+            <div class="article-mark" aria-hidden="true">{post.number}</div>
+        </header>
+        <div class="article-content">
+            {post.sections.map((section) => (
+                <section>
+                    <h2>{section.title}</h2>
+                    {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+                    {section.note && <blockquote>{section.note}</blockquote>}
+                </section>
+            ))}
+        </div>
+        <footer class="article-footer">
+            <p>Gracias por llegar hasta aquí.</p>
+            <a href="mailto:hola@valeriadev.com">Continuemos la conversación <span>↗</span></a>
+        </footer>
+    </article>
+</Layout>
